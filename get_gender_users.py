@@ -1,4 +1,4 @@
-import get_data
+import json
 
 def get_gender_users(data:dict) -> list:
     """
@@ -13,3 +13,16 @@ def get_gender_users(data:dict) -> list:
     Returns:
         list: users get gender list
     """
+    genders=[{"Male":0},{"Female":0}]
+    for i in data['results']:
+        if i.get('gender')=='male':
+            genders[0]['Male']+=1
+        elif i.get('gender')=='female':
+            genders[1]['Female']+=1
+    return genders
+
+
+f=open('./randomuser_data.json')
+data=json.load(f)
+print(get_gender_users(data))
+f.close()
